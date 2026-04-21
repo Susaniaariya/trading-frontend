@@ -22,7 +22,7 @@ const Signup = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "http://localhost:3002/signup",
+        "https://sangini-e893.onrender.com/signup",
         { ...inputValue },
         { withCredentials: true },
       );

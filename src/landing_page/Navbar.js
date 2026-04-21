@@ -68,7 +68,9 @@ function Navbar() {
     if (!token) return;
     const fetchBalance = () => {
       axios
-        .get("http://localhost:3002/me", { headers: { Authorization: token } })
+        .get("https://sangini-e893.onrender.com/me", {
+          headers: { Authorization: token },
+        })
         .then((res) => setBalance(res.data.virtualBalance ?? 0))
         .catch((err) => console.error(err));
     };

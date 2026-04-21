@@ -19,9 +19,12 @@ const Home = () => {
     // Fetch the logged-in user's info from your backend
     const fetchUser = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3002/me", {
-          headers: { Authorization: token },
-        });
+        const { data } = await axios.get(
+          "https://sangini-e893.onrender.com/me",
+          {
+            headers: { Authorization: token },
+          },
+        );
         setUsername(data.username);
         toast(`Hello ${data.username}`, { position: "top-right" });
       } catch (err) {

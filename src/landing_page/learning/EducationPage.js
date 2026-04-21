@@ -4,7 +4,6 @@ import LEVELS from "./levels";
 import LevelCard from "./LevelCard";
 import LevelView from "./LevelView";
 
-
 function EducationPage() {
   const [totalPoints, setTotalPoints] = useState(0);
   const [completedLevels, setCompletedLevels] = useState(new Set());
@@ -19,9 +18,12 @@ function EducationPage() {
     const fetchUserProgress = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3002/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://sangini-e893.onrender.com/me",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
 
         // Destructure from the response you defined in getMe
         const { points, completedLessons } = response.data;
@@ -72,7 +74,7 @@ function EducationPage() {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:3002/award-points",
+        "https://sangini-e893.onrender.com/award-points",
         {
           lessonId: String(levelId),
           pointsToAward: ptsEarned,
