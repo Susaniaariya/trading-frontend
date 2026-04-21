@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Page background ── */
+.form_container,
+.auth_page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  background: #fdf6f0;
+}
+
+/* Soft blobs */
+.form_container::before,
+.auth_page::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 182, 193, 0.35) 0%, transparent 65%);
+  top: -180px;
+  right: -150px;
+  pointer-events: none;
+}
+
+.form_container::after,
+.auth_page::after {
+  content: '';
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(221, 160, 221, 0.25) 0%, transparent 65%);
+  bottom: -120px;
+  left: -100px;
+  pointer-events: none;
+}
+
+/* ── Card ── */
+.form_container form,
+.auth_card {
+  background: #ffffff;
+  border: 1px solid rgba(255, 182, 193, 0.4);
+  border-radius: 28px;
+  padding: 3rem 2.8rem;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 8px 48px rgba(255, 105, 135, 0.1), 0 2px 12px rgba(0,0,0,0.04);
+  animation: fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Top accent bar */
+.form_container form,
+.auth_card {
+  border-top: 3px solid transparent;
+  background-image: linear-gradient(#fff, #fff),
+    linear-gradient(90deg, #f9a8c9, #c084fc);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+/* ── Hide the stray h2 outside the form ── */
+.form_container > h2 {
+  display: none !important;
+}
+
+/* ── Headings ── */
+.auth_card h2 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 1.9rem !important;
+  font-weight: 600 !important;
+  color: #2d1b2e !important;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+  text-align: left !important;
+  line-height: 1.25;
+}
+
+.auth_card p.text-muted {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.88rem !important;
+  color: #b08fa0 !important;
+  font-weight: 300 !important;
+  text-align: left !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Login card synthetic title */
+.form_container form::before {
+  content: 'Welcome back ✦';
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #2d1b2e;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.3rem;
+  line-height: 1.25;
+}
+
+
+/* ── Field groups ── */
+.form_container form > div,
+.mb-3,
+.mb-4 {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 1.2rem;
+}
+
+/* ── Labels ── */
+label,
+.form-label {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.73rem !important;
+  font-weight: 500 !important;
+  color: #c490a8 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ── Inputs ── */
+input[type="email"],
+input[type="text"],
+input[type="password"],
+.form-control {
+  background: #fdf6f9 !important;
+  border: 1.5px solid #f0c8d8 !important;
+  border-radius: 14px !important;
+  padding: 0.85rem 1.1rem !important;
+  font-size: 0.95rem !important;
+  color: #2d1b2e !important;
+  font-family: 'Jost', sans-serif !important;
+  font-weight: 400 !important;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  outline: none;
+  width: 100%;
+}
+
+input::placeholder,
+.form-control::placeholder {
+  color: #d4afc0 !important;
+  font-weight: 300 !important;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+.form-control:focus {
+  background: #fff0f6 !important;
+  border-color: #f472b6 !important;
+  box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.12) !important;
+}
+
+/* ── Submit button ── */
+button[type="submit"],
+.btn.btn-primary {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: linear-gradient(135deg, #f9a8c9 0%, #c084fc 100%) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  color: #ffffff !important;
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.92rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  margin-bottom: 1.4rem;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(244, 114, 182, 0.3);
+}
+
+button[type="submit"]:hover,
+.btn.btn-primary:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(244, 114, 182, 0.4) !important;
+}
+
+button[type="submit"]:active,
+.btn.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ── Bottom link — centered ── */
+.form_container form > span {
+  display: block;
+  text-align: center;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  color: #c4a0b2;
+}
+
+.form_container form > span a {
+  color: #e879a8 !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.form_container form > span a:hover {
+  color: #c084fc !important;
+}
+
+/* Signup bottom link */
+.auth_card .text-center span.text-muted {
+  font-family: 'Jost', sans-serif !important;
+  font-size: 0.88rem !important;
+  color: #c4a0b2 !important;
+}
+
+.auth_card .text-center a {
+  color: #e879a8 !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: color 0.2s;
+}
+
+.auth_card .text-center a:hover {
+  color: #c084fc !important;
+}
+
+/* ── Entrance animation ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .form_container form,
+  .auth_card {
+    padding: 2.2rem 1.6rem;
+    border-radius: 20px;
+  }
+}
