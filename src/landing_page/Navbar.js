@@ -1,9 +1,13 @@
+
+
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 // ✅ FIXED: Points directly to public folder
 const SANGINI_LOGO = "/media/images/LOGO2.png";
+
+const DASHBOARD_URL = "https://sangini-dashboard.vercel.app";
 
 const styles = {
   nav: {
@@ -82,18 +86,28 @@ function Navbar() {
     window.location.href = "/";
   };
 
+  // ✅ Pass token in URL when navigating to dashboard
+  const handleDashboardClick = (e) => {
+    e.preventDefault();
+    const currentToken = localStorage.getItem("token");
+    if (!currentToken) {
+      window.location.href = "/login";
+      return;
+    }
+    window.location.href = `${DASHBOARD_URL}/?token=${currentToken}`;
+  };
+
   return (
     <>
       <style>{`
         .pink-nav-link:hover { background: #fce4ec !important; color: #c2185b !important; }
         .pink-logout-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(233,30,99,0.3); }
+        .dashboard-nav-link:hover { background: #fce4ec !important; color: #c2185b !important; }
       `}</style>
-
       <nav style={styles.nav}>
         <Link to="/" style={{ display: "flex", alignItems: "center" }}>
           <img src={SANGINI_LOGO} alt="Home" style={styles.logoImg} />
         </Link>
-
         <ul style={styles.linksWrap}>
           {["About", "Product", "Pricing", "Support", "Learn"].map((label) => (
             <li key={label}>
@@ -106,15 +120,15 @@ function Navbar() {
               </Link>
             </li>
           ))}
-
           {token && (
             <>
-              {/* ✅ Use <a> for port-to-port jumping (3000 to 3001) */}
+              {/* ✅ Passes token in URL so dashboard can authenticate */}
               <li>
                 <a
-                  href="https://sangini-dashboard.vercel.app" // ✅ Change this to your live Vercel link
-                  className="pink-nav-link"
+                  href={DASHBOARD_URL}
+                  className="dashboard-nav-link"
                   style={{ ...styles.navLink, fontWeight: "bold" }}
+                  onClick={handleDashboardClick}
                 >
                   Dashboard
                 </a>

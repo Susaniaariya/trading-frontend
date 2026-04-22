@@ -155,16 +155,22 @@ const petalData = [
   { emoji: "🌷", left: "88%", delay: "5s", duration: "12s" },
 ];
 
+// ✅ Your two deployed Vercel URLs
+const APP_URLS = {
+  trading: "https://sangini-frontend-tau.vercel.app",
+  dashboard: "https://sangini-dashboard.vercel.app",
+};
+
 const Apps = () => {
-  const handleOpen = (port) => {
+  const handleOpen = (app) => {
     const token = localStorage.getItem("token");
-    if (token) {
-      // We MUST pass the token in the URL so Port 3001 can "see" it
-      window.location.href = `http://localhost:${port}/?token=${token}`;
-    } else {
+    if (!token) {
       alert("No session found. Please log in again.");
       window.location.href = "/login";
+      return;
     }
+    // ✅ Pass token in URL so the dashboard can pick it up
+    window.location.href = `${APP_URLS[app]}/?token=${token}`;
   };
 
   return (
@@ -249,7 +255,7 @@ const Apps = () => {
             <button
               className="btn-outline-pink"
               style={styles.btnOutline}
-              onClick={() => handleOpen(3000)}
+              onClick={() => handleOpen("trading")}
             >
               Open Dashboard
             </button>
@@ -264,7 +270,7 @@ const Apps = () => {
             <button
               className="btn-filled-pink"
               style={styles.btnFilled}
-              onClick={() => handleOpen(3001)}
+              onClick={() => handleOpen("dashboard")}
             >
               Open Dashboard
             </button>
