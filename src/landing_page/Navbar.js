@@ -112,7 +112,7 @@ function Navbar() {
               {/* ✅ Use <a> for port-to-port jumping (3000 to 3001) */}
               <li>
                 <a
-                  href="http://localhost:3001"
+                  href="https://sangini-dashboard.vercel.app" // ✅ Change this to your live Vercel link
                   className="pink-nav-link"
                   style={{ ...styles.navLink, fontWeight: "bold" }}
                 >
