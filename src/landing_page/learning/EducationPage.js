@@ -63,52 +63,44 @@ function EducationPage() {
     return completedLevels.has(id - 1);
   }
 
-  // --- 2. Save Progress to MongoDB ---
-  async function handleLevelComplete(levelId, ptsEarned) {
-    // 0. Safety Check: If already completed, don't ping server again
-    if (completedLevels.has(levelId)) {
-      goBack();
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.post(
-        "https://sangini-e893.onrender.com/award-points",
-        {
-          lessonId: String(levelId),
-          pointsToAward: ptsEarned,
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        },
-      );
-
-      // 1. Only update local state if the server confirmed it (or if it's already there)
-      if (response.data.status || response.status === 200) {
-        setTotalPoints((p) => p + ptsEarned);
-        setCompletedLevels((prev) => new Set([...prev, levelId]));
-        setLevelProgress((prev) => ({
-          ...prev,
-          [levelId]: LEVELS[levelId].questions.length,
-        }));
-        console.log("Progress permanently saved!");
-      }
-    } catch (err) {
-      // If the backend returns 400 (Already earned), we should still update the UI
-      if (err.response && err.response.status === 400) {
-        console.warn("Points already recorded in DB.");
-      } else {
-        console.error("Critical error saving progress:", err);
-        alert(
-          "Progress could not be saved to the cloud. Check your connection.",
-        );
-      }
-    } finally {
-      goBack();
-    }
+async function handleLevelComplete(levelId, ptsEarned) {
+  if (completedLevels.has(levelId)) {
+    goBack();
+    return;
   }
+
+  try {
+    const token = localStorage.getItem("token");
+
+    // ✅ Updated URL to match your backend logic
+    // ✅ Updated keys (lessonId) to match your backend expectations
+    const response = await axios.post(
+      "https://sangini-e893.onrender.com/quiz/complete-lesson",
+      {
+        lessonId: String(levelId),
+      },
+      {
+        headers: { Authorization: token }, // Using the format your backend likes
+      },
+    );
+
+    if (response.data.newPoints !== undefined) {
+      setTotalPoints(response.data.newPoints); // Sync directly with DB total
+      setCompletedLevels((prev) => new Set([...prev, levelId]));
+      setLevelProgress((prev) => ({
+        ...prev,
+        [levelId]: LEVELS[levelId].questions.length,
+      }));
+      console.log("Progress saved to MongoDB!");
+    }
+  } catch (err) {
+    console.error("Critical error saving progress:", err);
+    // Even if it fails, you might want to show the result locally
+    // for the presentation, but warn the user.
+  } finally {
+    goBack();
+  }
+}
   function startLevel(id) {
     setActiveLevel(id);
   }
